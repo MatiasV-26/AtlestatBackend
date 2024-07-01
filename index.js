@@ -4,6 +4,8 @@ const sequelize = require('./util/database');
 const User = require('./models/user');
 const Institution = require('./models/institution');
 const Person = require('./models/person');
+const Team = require('./models/team');
+const Admin = require('./models/admin');
 const app = express();
 
 app.use(bodyparser.json());
@@ -24,6 +26,8 @@ app.get('/', (req, res, next) => {
 app.use('/users', require('./routes/users'));
 app.use('/institutions', require('./routes/institutions'));
 app.use('/personas', require('./routes/personas'));
+app.use('/teams', require('./routes/teams'));
+app.use('/admins', require('./routes/admins'));
 //error handling
 app.use((error, req, res, next) => {
   console.log(error);
