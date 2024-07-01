@@ -6,6 +6,8 @@ const Institution = require('./models/institution');
 const Person = require('./models/person');
 const Team = require('./models/team');
 const Admin = require('./models/admin');
+const Coach = require('./models/coach');
+const Trainer = require('./models/trainer');
 const app = express();
 
 app.use(bodyparser.json());
@@ -28,6 +30,8 @@ app.use('/institutions', require('./routes/institutions'));
 app.use('/personas', require('./routes/personas'));
 app.use('/teams', require('./routes/teams'));
 app.use('/admins', require('./routes/admins'));
+app.use('/coaches', require('./routes/coaches'));
+app.use('/trainers', require('./routes/trainers'));
 //error handling
 app.use((error, req, res, next) => {
   console.log(error);
