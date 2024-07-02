@@ -9,6 +9,7 @@ const Admin = require('./models/admin');
 const Coach = require('./models/coach');
 const Trainer = require('./models/trainer');
 const Player = require('./models/player');
+const Match = require('./models/match');
 const app = express();
 
 app.use(bodyparser.json());
@@ -34,6 +35,7 @@ app.use('/admins', require('./routes/admins'));
 app.use('/coaches', require('./routes/coaches'));
 app.use('/trainers', require('./routes/trainers'));
 app.use('/players', require('./routes/players'));
+app.use('/matches', require('./routes/matches'));
 //error handling
 app.use((error, req, res, next) => {
   console.log(error);
