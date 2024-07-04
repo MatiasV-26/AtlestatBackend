@@ -10,6 +10,7 @@ const Coach = require('./models/coach');
 const Trainer = require('./models/trainer');
 const Player = require('./models/player');
 const Match = require('./models/match');
+const Attendance = require('./models/attendance');
 const app = express();
 
 app.use(bodyparser.json());
@@ -36,6 +37,7 @@ app.use('/coaches', require('./routes/coaches'));
 app.use('/trainers', require('./routes/trainers'));
 app.use('/players', require('./routes/players'));
 app.use('/matches', require('./routes/matches'));
+app.use('/attendances', require('./routes/attendances'));
 //error handling
 app.use((error, req, res, next) => {
   console.log(error);
