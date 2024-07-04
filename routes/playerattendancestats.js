@@ -1,10 +1,10 @@
 const controller = require('../controllers/playerattendancestats');
 const router = require('express').Router();
 
-router.get('/', controller.getPlayerattendancestats); // /users
-router.get('/:playerattendancestatId', controller.getPlayerattendancestat); // /users/:userId
-router.post('/', controller.createPlayerattendancestat); // /users
-router.put('/:playerattendancestatId', controller.updatePlayerattendancestat); // /users/:userId
-//router.delete('/:userId', controller.deleteUser); // /users/:userId
+router.get('/', controller.getPlayerattendancestats);
+router.get('/:playerattendancestatId', controller.getPlayerattendancestat);
+router.post('/', controller.createPlayerattendancestat);
+router.put('/:playerattendancestatId', controller.updatePlayerattendancestat);
+//router.delete('/:playerattendancestatId', controller.deletePlayerattendancestat);
 
 module.exports = router;

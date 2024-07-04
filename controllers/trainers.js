@@ -60,3 +60,23 @@ exports.updateTrainer = (req, res, next) => {
     })
     .catch(err => console.log(err));
 }
+
+
+exports.deleteTrainer = (req, res, next) => {
+  const trainerId = req.params.trainerId;
+  Trainer.findByPk(trainerId)
+    .then(trainer => {
+      if (!trainer) {
+        return res.status(404).json({ message: 'trainer not found!' });
+      }
+      return trainer.destroy({
+        where: {
+          id: trainerId
+        }
+      });
+    })
+    .then(result => {
+      res.status(200).json({ message: 'trainer deleted!' });
+    })
+    .catch(err => console.log(err));
+}

@@ -65,3 +65,22 @@ exports.updateTeam = (req, res, next) => {
     })
     .catch(err => console.log(err));
 }
+
+exports.deleteTeam = (req, res, next) => {
+  const teamId = req.params.teamId;
+  Team.findByPk(teamId)
+    .then(team => {
+      if (!team) {
+        return res.status(404).json({ message: 'team not found!' });
+      }
+      return team.destroy({
+        where: {
+          id: teamId
+        }
+      });
+    })
+    .then(result => {
+      res.status(200).json({ message: 'team deleted!' });
+    })
+    .catch(err => console.log(err));
+}

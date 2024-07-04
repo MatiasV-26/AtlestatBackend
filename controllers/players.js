@@ -60,3 +60,22 @@ exports.updatePlayer = (req, res, next) => {
     })
     .catch(err => console.log(err));
 }
+
+exports.deletePlayer = (req, res, next) => {
+  const playerId = req.params.playerId;
+  Player.findByPk(playerId)
+    .then(player => {
+      if (!player) {
+        return res.status(404).json({ message: 'player not found!' });
+      }
+      return player.destroy({
+        where: {
+          id: playerId
+        }
+      });
+    })
+    .then(result => {
+      res.status(200).json({ message: 'player deleted!' });
+    })
+    .catch(err => console.log(err));
+}
