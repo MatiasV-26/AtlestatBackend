@@ -13,6 +13,8 @@ const Match = require('./models/match');
 const Attendance = require('./models/attendance');
 const Playerattendance = require('./models/playerattendance');
 const Playerattendancestat = require('./models/playerattendancestat');
+const Personalstat = require('./models/personalstat');
+const Matchrelatedwithteams = require('./models/matchrelatedwithteams');
 const app = express();
 
 app.use(bodyparser.json());
@@ -42,6 +44,8 @@ app.use('/matches', require('./routes/matches'));
 app.use('/attendances', require('./routes/attendances'));
 app.use('/playerattendances', require('./routes/playerattendances'));
 app.use('/playerattendancestats', require('./routes/playerattendancestats'));
+app.use('/personalstats', require('./routes/personalstats'));
+app.use('/matchrelatedwithteamsc', require('./routes/matchrelatedwithteamsc'));
 //error handling
 app.use((error, req, res, next) => {
   console.log(error);
