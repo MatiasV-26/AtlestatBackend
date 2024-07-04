@@ -45,3 +45,25 @@ exports.createMatch = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+
+exports.updateMatch = (req, res, next) => {
+  const matchId = req.params.matchId;
+  const updateScore = req.body.score;
+  const updateDate = req.body.date;
+  const updateLocation = req.body.location;
+  Match.findByPk(matchId)
+    .then(match => {
+      if (!match) {
+        return res.status(404).json({ message: 'match not found!' });
+      }
+      match.score = updateScore;
+      match.date = updateDate;
+      match.location = updateLocation;
+      return match.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'match updated!', match: result});
+    })
+    .catch(err => console.log(err));
+}

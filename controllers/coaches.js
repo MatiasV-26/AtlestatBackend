@@ -42,3 +42,20 @@ exports.createCoach = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+exports.updateCoach = (req, res, next) => {
+  const coachId = req.params.coachId;
+  const updateTeam_id = req.body.team_id;
+  Coach.findByPk(coachId)
+    .then(coach => {
+      if (!coach) {
+        return res.status(404).json({ message: 'coach not found!' });
+      }
+      coach.team_id = updateTeam_id;
+      return coach.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'coach updated!', coach: result});
+    })
+    .catch(err => console.log(err));
+}

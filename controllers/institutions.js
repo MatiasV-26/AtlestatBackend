@@ -42,3 +42,23 @@ exports.createInstitution = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+
+exports.updateInstitution = (req, res, next) => {
+  const institutionId = req.params.institutionId;
+  const updateName = req.body.name;
+  const updateDistrict = req.body.district;
+  Institution.findByPk(institutionId)
+    .then(institution => {
+      if (!institution) {
+        return res.status(404).json({ message: 'institution not found!' });
+      }
+      institution.name = updateName;
+      institution.district = updateDistrict;
+      return institution.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'adinstitutionmin updated!', institution: result});
+    })
+    .catch(err => console.log(err));
+}

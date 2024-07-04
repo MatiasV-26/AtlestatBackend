@@ -12,8 +12,8 @@ exports.getPersonalstats = (req, res, next) => {
 
 
 exports.getPersonalstat = (req, res, next) => {
-    const personalstatsId = req.params.personalstatsId;
-    Personalstat.findByPk(personalstatsId)
+    const personalstatId = req.params.personalstatId;
+    Personalstat.findByPk(personalstatId)
         .then(personalstat => {
             if (!personalstat) {
                 return res.status(404).json({ message: 'personalstat not found!' });
@@ -44,3 +44,24 @@ exports.createPersonalstat = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+exports.updatePersonalStats = (req, res, next) => {
+    const updateDocument_id = req.body.document_id;
+    const updateMatch_id = req.body.match_id;
+    const updatePlayer_id = req.body.player_id;
+    const personalstatId = req.params.personalstatId;
+    Personalstat.findByPk(personalstatId)
+        .then(personalstat => {
+            if (!personalstat) {
+                return res.status(404).json({ message: 'personalstat not found!' });
+        }
+        personalstat.document_id = updateDocument_id;
+        personalstat.match_id = updateMatch_id;
+        personalstat.player_id = updatePlayer_id;
+        return personalstat.save();
+      })
+      .then(result => {
+        res.status(200).json({message: 'personalstat updated!', personalstat: result});
+      })
+      .catch(err => console.log(err));
+  }

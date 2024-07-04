@@ -44,3 +44,22 @@ exports.createMatchrelatedwithteams = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+exports.updateMatchrelatedwithteams = (req, res, next) => {
+    const matchrelatedwithteamsId = req.params.matchrelatedwithteamsId;
+    const updateTeam1 = req.body.team1_id;
+    const updateTeam2 = req.body.team2_id;
+    Matchrelatedwithteams.findByPk(matchrelatedwithteamsId)
+      .then(matchrelatedwithteams => {
+        if (!matchrelatedwithteams) {
+          return res.status(404).json({ message: 'matchrelatedwithteams not found!' });
+        }
+        matchrelatedwithteams.team1_id = updateTeam1;
+        matchrelatedwithteams.team2_id = updateTeam2;
+        return matchrelatedwithteams.save();
+      })
+      .then(result => {
+        res.status(200).json({message: 'matchrelatedwithteams updated!', matchrelatedwithteams: result});
+      })
+      .catch(err => console.log(err));
+  }
