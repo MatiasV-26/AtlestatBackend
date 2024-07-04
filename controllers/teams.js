@@ -44,3 +44,24 @@ exports.createTeam = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+exports.updateTeam = (req, res, next) => {
+  const teamId = req.params.teamId;
+  const updateName = req.body.name;
+  const updateSport = req.body.sport;
+  const updateInstitution_id = req.body.institution_id;
+  Team.findByPk(teamId)
+    .then(team => {
+      if (!team) {
+        return res.status(404).json({ message: 'team not found!' });
+      }
+      team.name = updateName;
+      team.sport = updateSport;
+      team.institution_id = updateInstitution_id;
+      return team.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'team updated!', team: result});
+    })
+    .catch(err => console.log(err));
+}

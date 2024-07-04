@@ -42,3 +42,21 @@ exports.createTrainer = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+
+exports.updateTrainer = (req, res, next) => {
+  const trainerId = req.params.trainerId;
+  const updateteam_id = req.body.team_id;
+  Trainer.findByPk(trainerId)
+    .then(trainer => {
+      if (!trainer) {
+        return res.status(404).json({ message: 'trainer not found!' });
+      }
+      trainer.team_id = updateteam_id;
+      return trainer.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'trainer updated!', trainer: result});
+    })
+    .catch(err => console.log(err));
+}
