@@ -42,3 +42,21 @@ exports.createPlayer = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+
+exports.updatePlayer = (req, res, next) => {
+  const playerId = req.params.playerId;
+  const updateTeam_id = req.body.team_id;
+  Player.findByPk(playerId)
+    .then(player => {
+      if (!player) {
+        return res.status(404).json({ message: 'player not found!' });
+      }
+      player.team_id = updateTeam_id;
+      return player.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'player updated!', player: result});
+    })
+    .catch(err => console.log(err));
+}
