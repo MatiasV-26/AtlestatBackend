@@ -44,3 +44,26 @@ exports.createPlayerattendancestat = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+exports.updatePlayerattendancestat = (req, res, next) => {
+    const playerattendancestatId = req.params.playerattendancestatId;
+
+    const updateDocument_id = req.body.document_id;
+    const updateMatch_id = req.body.match_id;
+    const updatePlayer_id = req.body.player_id;
+
+    Playerattendancestat.findByPk(playerattendancestatId)
+      .then(playerattendancestatId => {
+        if (!playerattendancestatId) {
+          return res.status(404).json({ message: 'playerattendancestatId not found!' });
+        }
+        playerattendancestatId.document_id = updateDocument_id;
+        playerattendancestatId.match_id = updateMatch_id;
+        playerattendancestatId.player_id = updatePlayer_id;
+        return playerattendancestatId.save();
+      })
+      .then(result => {
+        res.status(200).json({message: 'playerattendancestatId updated!', playerattendancestatId: result});
+      })
+      .catch(err => console.log(err));
+  }

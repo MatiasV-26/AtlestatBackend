@@ -51,3 +51,35 @@ exports.createPerson = (req, res, next) => {
       console.log(err);
     }); 
 }
+
+
+exports.updatePerson = (req, res, next) => {
+  const personId = req.params.personId;
+
+  const updateFirstName = req.body.firstName;
+  const updateLastName = req.body.lastName;
+  const updatePhone = req.body.phone;
+  const updateNationality = req.body.nationality;
+  const updateBirth = req.body.birth;
+  const updateGender = req.body.gender;
+
+  Person.findByPk(personId)
+    .then(person => {
+      if (!person) {
+        return res.status(404).json({ message: 'person not found!' });
+      }
+
+      person.firstName = updateFirstName;
+      person.lastName = updateLastName;
+      person.phone = updatePhone;
+      person.nationality = updateNationality;
+      person.birth = updateBirth;
+      person.gender = updateGender;
+
+      return person.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'person updated!', person: result});
+    })
+    .catch(err => console.log(err));
+}
