@@ -68,4 +68,21 @@ exports.updatePlayerattendancestat = (req, res, next) => {
       .catch(err => console.log(err));
   }
 
-
+  exports.deletePlayerattendancestat = (req, res, next) => {
+    const playerattendancestatId = req.params.playerattendancestatId;
+    Playerattendancestat.findByPk(playerattendancestatId)
+      .then(playerattendancestat => {
+        if (!playerattendancestat) {
+          return res.status(404).json({ message: 'Playerattendancestat not found!' });
+        }
+        return Playerattendancestat.destroy({
+          where: {
+            id: playerattendancestatId
+          }
+        });
+      })
+      .then(result => {
+        res.status(200).json({ message: 'Playerattendancestat deleted!' });
+      })
+      .catch(err => console.log(err));
+  }
