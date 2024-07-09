@@ -69,7 +69,7 @@ exports.deleteTrainer = (req, res, next) => {
       if (!trainer) {
         return res.status(404).json({ message: 'trainer not found!' });
       }
-      return trainer.destroy({
+      return Trainer.destroy({
         where: {
           id: trainerId
         }

@@ -73,7 +73,7 @@ exports.deleteTeam = (req, res, next) => {
       if (!team) {
         return res.status(404).json({ message: 'team not found!' });
       }
-      return team.destroy({
+      return Team.destroy({
         where: {
           id: teamId
         }

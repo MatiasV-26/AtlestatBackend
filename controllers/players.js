@@ -68,7 +68,7 @@ exports.deletePlayer = (req, res, next) => {
       if (!player) {
         return res.status(404).json({ message: 'player not found!' });
       }
-      return player.destroy({
+      return Player.destroy({
         where: {
           id: playerId
         }
